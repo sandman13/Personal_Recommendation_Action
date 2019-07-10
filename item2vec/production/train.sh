@@ -1,0 +1,1 @@
+./word2vec -train ../data/train_data.txt -output ../data/item_vec.txt -cbow 0 -iter 100 -size 128 -window 5 -negative 5 -hs 0 -sample 1e-3 -binary 0
