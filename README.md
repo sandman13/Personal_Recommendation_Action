@@ -8,8 +8,9 @@
 [Census Income Dataset](https://archive.ics.uci.edu/ml/datasets/Census+Income)
 
 ## 具体算法博客链接 ##
-[基于邻域的推荐-LFM] (https://www.yuque.com/sandman13/tsqxws/hp6v4r)</br>
-[基于图的推荐-PersonalRank] (https://www.yuque.com/sandman13/tsqxws/qbg155)</br>
+
+[基于邻域的推荐-LFM](https://www.yuque.com/sandman13/tsqxws/hp6v4r)</br>
+[基于图的推荐-PersonalRank](https://www.yuque.com/sandman13/tsqxws/qbg155)</br>
 [基于深度学习的推荐-Item2vec](https://www.yuque.com/sandman13/tsqxws/bfzgwt)</br>
 [基于内容的推荐-contentBased](https://www.yuque.com/sandman13/tsqxws/dnesfo)</br>
 [LR模型排序](https://www.yuque.com/sandman13/tsqxws/yp5iq7)</br>
