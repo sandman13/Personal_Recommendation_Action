@@ -16,7 +16,8 @@ def train_lr_model(train_file,model_coef,model_file):
     '''
     total_feature_num=118
     train_label=np.genfromtxt(train_file,dtype=np.int32,delimiter=",",usecols=-1)  #标签是最后一列
-    feature_list=list(range(total_feature_num))
+    feature_list=list(range(total_feature_num-1))  #0-116
+    print(feature_list)
     train_feature=np.genfromtxt(train_file,dtype=np.int32,delimiter=",",usecols=feature_list)
     #print(np.shape(train_feature))
     #迭代停止条件tol=0.0001,最大迭代次数为500，交叉验证为5，即每次选择20%作为测试,由于这里数据不是很多，默认最优化方法使用拟牛顿法

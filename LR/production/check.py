@@ -15,7 +15,7 @@ def get_test_data(input_file):
     '''
     total_feature_num=118
     test_label=np.genfromtxt(input_file,dtype=np.float32,delimiter=",",usecols=-1)
-    feature_list=list(range(total_feature_num))
+    feature_list=list(range(total_feature_num-1))
     test_feature=np.genfromtxt(input_file,dtype=np.float32,delimiter=",",usecols=feature_list)
     return test_feature,test_label
 

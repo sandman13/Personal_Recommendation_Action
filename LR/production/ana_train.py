@@ -1,5 +1,6 @@
 #-*-coding:utf-8 -*-
 #feature selection and data selection
+#房价预测
 
 import os
 import operator
@@ -9,7 +10,7 @@ import sys
 
 def get_input(input_train_file,input_test_file):
     '''
-
+    获取输入
     :param input_train_file:
     :param input_test_file:
     :return:  two dataFrame
@@ -25,16 +26,21 @@ def get_input(input_train_file,input_test_file):
     #print(use_list)
     #指定一些列的类型，这里要注意设置缺省值的时候，数据集的？前面有一个空格，并且指定需要哪些列
     train_data_df=pd.read_csv(input_train_file,sep=",",header=0,dtype=dtype_dict,na_values=' ?',usecols=use_list)
-    print(len(train_data_df))
+    print("原始训练数据的大小是：",len(train_data_df))
     train_data_df=train_data_df.dropna(axis=0,how="any")
-    print(len(train_data_df))
+    print("删除缺省值之后的训练数据的大小是：",len(train_data_df))
     test_data_df = pd.read_csv(input_test_file, sep=",", header=0, dtype=dtype_dict, na_values=' ?', usecols=use_list)
-    print(len(test_data_df))
+    print("原始测试数据的大小是：",len(test_data_df))
     test_data= test_data_df.dropna(axis=0, how="any")  # 删除所有含有缺省值的行
-    print(len(test_data))
+    print("删除缺省值之后的测试集大小是：",len(test_data))
     return train_data_df,test_data_df
 
 def train_label_trans(x):
+    '''
+    转换训练数据标签
+    :param x:
+    :return:
+    '''
     if x==" <=50K":
         return "0"
     if x==" >50K":
@@ -42,6 +48,11 @@ def train_label_trans(x):
     return "0"
 
 def test_label_trans(x):
+    '''
+    转换测试数据标签
+    :param x:
+    :return:
+    '''
     if x==" <=50K.":
         return "0"
     if x==" >50K.":
@@ -97,9 +108,11 @@ def process_dis_feature(feature_str,df_train,df_test):
     :param df_test:
     :return: dimension
     '''
+
+    #origin_dict的key是feature_str的所有特征取值，value是对应的特征取值出现的次数
     origin_dict=df_train.loc[:,feature_str].value_counts().to_dict()
     #print(origin_dict)
-    #得到一个dictionary：key:feature取值 value：index
+    #按照value对特征的取值进行排序，得到的字典的key值是feature的取值，value是对应的索引下标
     feature_dict=dict_trans(origin_dict)
     #print(feature_dict)
     df_train.loc[:,feature_str]=df_train.loc[:,feature_str].apply(dis_to_feature,args=(feature_dict,))
@@ -109,7 +122,7 @@ def process_dis_feature(feature_str,df_train,df_test):
 
 def list_trans(input_dict):
     '''
-
+    连续特征的describe（）函数的输出来转换连续特征为离散特征
     :param input_dict:
     :return:
     '''
@@ -149,9 +162,10 @@ def process_con_feature(feature_str,df_train,df_test):
     '''
     #首先先确定分布，使用自带的describe()函数
     origin_dict=df_train.loc[:,feature_str].describe().to_dict()
-    print(origin_dict)
+    print(feature_str,origin_dict)
     #根据分位点来处理连续特征
     feature_list=list_trans(origin_dict)
+    print(feature_str,feature_list)
     df_train.loc[:,feature_str]=df_train.loc[:,feature_str].apply(con_to_feature,args=(feature_list,))
     df_test.loc[:,feature_str]=df_test.loc[:,feature_str].apply(con_to_feature,args=(feature_list,))
     return len(feature_list)-1
@@ -175,6 +189,8 @@ def ana_train_data(input_train_data,input_test_data,out_train_file,out_test_file
     dis_feature_num=0
     for feature in dis_feature_list:
         dis_feature_num+=process_dis_feature(feature,train_data_df,test_data_df)
+
+    #处理连续特征
     con_feature_list=['education-num','age','capital-gain','capital-loss','hours-per-week']
     con_feature_num=0
     for feature in con_feature_list:
