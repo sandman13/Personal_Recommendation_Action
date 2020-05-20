@@ -1,4 +1,4 @@
-# Personal-Recommendation-Action-
+# Personal_Recommendation_Action
 一些经典的个性化推荐算法的实现，从理论推导到实战
 
 本项目实现了一些经典的个性化推荐召回算法，包括*基于邻域的推荐算法（LFM）*、*基于图的推荐算法（Personal Rank）*、*基于深度学习的推荐算法（Item2vec）*。其次本项目通过两种常用的排序模型，*逻辑回归（LR）和 GBDT*，进行样本的选择和处理举例，并且实现了*GBDT和LR混合模型*。
